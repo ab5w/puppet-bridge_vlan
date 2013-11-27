@@ -29,7 +29,7 @@ define bridge_vlan ( $interface = 'em1', ) {
         content => template('bridge_vlan/vlan.erb'),
     } ->
 
-    exec { 'bring-interfaces-up':
+    exec { "bring-interface-${name}-up":
         command => "/sbin/ifup vlan${name} && /sbin/ifup br${name}",
         unless  => "/sbin/ifconfig | /bin/grep br${name}",
     }
