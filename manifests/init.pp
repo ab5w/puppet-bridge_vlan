@@ -32,6 +32,11 @@ define bridge_vlan ( $interface = 'em1', ) {
     exec { "bring-interface-${name}-up":
         command => "/sbin/ifup vlan${name} && /sbin/ifup br${name}",
         unless  => "/sbin/ifconfig | /bin/grep br${name}",
+    } ->
+
+    exec { "echo-interface-${name}-rclocal":
+        command => "/bin/echo '/sbin/ifup br${name}' >> /etc/rc.local",
+        unless  => "/bin/grep '/sbin/ifup br${name}' /etc/rc.local",
     }
 
 }
