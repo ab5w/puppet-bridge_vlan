@@ -1,7 +1,7 @@
 #
 # Module to add additional bridge/vlan interfaces to RHEL.
 #
-# Copyright (C) 2013 Craig Parker <craig@ab5w.com>
+# Copyright (C) 2014 Craig Parker <craig@paragon.net.uk>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 # along with this program; If not, see <http://www.gnu.org/licenses/>.
 #
 
-define bridge_vlan ( $interface = 'em1', ) {
+define bridge_vlan ( $interface = $::main_interface, ) {
 
     file { "/etc/sysconfig/network-scripts/ifcfg-br${name}":
         ensure  => present,
